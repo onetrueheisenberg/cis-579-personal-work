@@ -100,4 +100,9 @@ streamlit run app.py
 
 Upload a .wav file to get started.
 
+## Authors
+
+Shahina Rajamani
+Shimil Shijo
+Sundar Swaminathan
 
