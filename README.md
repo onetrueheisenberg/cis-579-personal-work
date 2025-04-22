@@ -8,21 +8,21 @@ Moodify aims to enhance music personalization using AI-driven speech emotion rec
 
 ## Features
 
-Emotion detection using CNN-based models
+- Emotion detection using CNN-based models
 
-Feature extraction using librosa
+- Feature extraction using librosa
 
-SMOTE for class balancing
+- SMOTE for class balancing
 
-5-fold cross-validation
+- 5-fold cross-validation
 
-Music genre mapping based on predicted emotion
+- Music genre mapping based on predicted emotion
 
-Integration with Spotify API
+- Integration with Spotify API
 
-Confusion matrix and training visualizations
+- Confusion matrix and training visualizations
 
-Deployable via Streamlit app
+- Deployable via Streamlit app
 
 ## Method 1
 
@@ -34,13 +34,13 @@ The model is trained using augmented audio and SMOTE-balanced datasets. After pr
 
 This method includes additional optimizations:
 
-Data augmentation: pitch shift, noise, time stretch
+- Data augmentation: pitch shift, noise, time stretch
 
-Log-mel spectrogram feature extraction
+- Log-mel spectrogram feature extraction
 
-Cosine annealing learning rate scheduler
+- Cosine annealing learning rate scheduler
 
-Optional use of SMOTE and class weights
+- Optional use of SMOTE and class weights
 
 The CNN model follows a similar architecture and is trained on augmented, balanced data. Cross-validation ensures robustness, and final predictions are made using the best model.
 
@@ -60,43 +60,34 @@ Displays recommended tracks via Spotify embeds
 
 ## Requirements
 
-Python 3.7+
-
-librosa
-
-spotipy
-
-tensorflow
-
-scikit-learn
-
-seaborn
-
-matplotlib
-
-imbalanced-learn
-
-streamlit
-
-python-dotenv
+`Python 3.7+`
+`librosa`
+`spotipy`
+`tensorflow`
+`scikit-learn`
+`seaborn`
+`matplotlib`
+`imbalanced-learn`
+`streamlit`
+`python-dotenv`
 
 ## Installation
 
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 ## How to Use
 
-CLI / Notebook
+`CLI / Notebook`
 
 Place .wav files in the AudioWAV/ directory.
 
-Run either moodify-method_1.ipynb or moodify-method_2.ipynb.
+Run either `moodify-method_1.ipynb` or `moodify-method_2.ipynb`.
 
 Use the test_audio_prediction function to evaluate results.
 
-Web App
-
-streamlit run app.py
+### Web App
+In order to run web app, we need  `best_model.h5`(mode),`laber_encoder.pkl`(label encoder) and `scaler.pkl`(scaler) files.
+`streamlit run app.py`
 
 Upload a .wav file to get started.
 
