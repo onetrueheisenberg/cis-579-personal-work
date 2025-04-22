@@ -1,142 +1,103 @@
-# Speech Emotion Recognition & Music Recommendation #
+# Moodify
 
-This project aims to build an end-to-end Speech Emotion Recognition system that takes raw audio as input and classifies it into one of six emotional categories: happy, sad, neutral, fear, angry, and disgust. Based on the detected emotion, it then recommends suitable music using the Spotify API.
+Moodify is a speech-based music recommendation system that detects human emotions from voice and recommends music accordingly. It integrates speech emotion recognition and Spotify music recommendations into one seamless user experience. The project provides two alternative methods for emotion recognition and also includes a Streamlit web application for interactive use.
 
-## Features ##
+## Overview
 
-Preprocessing raw speech audio (silence trimming, padding)
+Moodify aims to enhance music personalization using AI-driven speech emotion recognition. Based on the mood of the user inferred from their voice, it maps emotions to predefined genres and fetches real-time Spotify track suggestions.
 
-Feature extraction using MFCCs, ZCR, RMS, and spectral features
+## Features
 
-Deep learning model with LSTM and CNN-LSTM architectures
+Emotion detection using CNN-based models
 
-Emotion classification accuracy of ~70%
+Feature extraction using librosa
 
-Real-time emotion prediction on new audio samples
+SMOTE for class balancing
 
-Spotify integration for emotion-based music recommendations
+5-fold cross-validation
 
-## Dataset Sources ##
+Music genre mapping based on predicted emotion
 
-CREMA-D
+Integration with Spotify API
 
-RAVDESS
+Confusion matrix and training visualizations
 
-TESS
+Deployable via Streamlit app
 
-SAVEE
+## Method 1
 
-Current version uses CREMA-D dataset mounted from Google Drive.
+This method uses a detailed feature extraction pipeline including MFCCs, Chroma, Mel spectrogram, Tonnetz, ZCR, RMSE, and spectral features. It implements a 1D CNN model with dropout and batch normalization. Stratified 5-fold cross-validation is used to evaluate performance. The best model is saved and evaluated using a classification report and confusion matrix.
 
-## Dependencies ##
+The model is trained using augmented audio and SMOTE-balanced datasets. After prediction, the emotion is mapped to a genre and recommended tracks are fetched from Spotify.
 
-Install the required packages:
+## Method 2
 
-pip install pydub spotipy librosa tensorflow scikit-learn matplotlib seaborn python-dotenv imbalanced-learn
+This method includes additional optimizations:
 
-## Pipeline Overview ##
+Data augmentation: pitch shift, noise, time stretch
 
-1. Data Preparation
+Log-mel spectrogram feature extraction
 
-Load WAV files from emotion speech datasets
+Cosine annealing learning rate scheduler
 
-Parse metadata for gender and emotion labels
+Optional use of SMOTE and class weights
 
-Merge data into a single DataFrame
+The CNN model follows a similar architecture and is trained on augmented, balanced data. Cross-validation ensures robustness, and final predictions are made using the best model.
 
-2. Preprocessing
+## Web Application
 
-Silence trimming
+The Streamlit web app allows users to upload a .wav file and receive an emotion classification and corresponding music recommendations from Spotify. It uses the model and scalers saved during method 2's training.
 
-Padding to a fixed duration
+### Features
 
-Resampling and uniform sample rate
+Upload .wav audio file
 
-3. Feature Extraction
+Plays back uploaded file
 
-Mel Frequency Cepstral Coefficients (MFCCs)
+Shows predicted emotion
 
-Zero Crossing Rate (ZCR)
+Displays recommended tracks via Spotify embeds
 
-Root Mean Square Energy (RMS)
+## Requirements
 
-Additional features: Spectral Centroid, Rolloff, Contrast, etc.
+Python 3.7+
 
-4. Model Building
+librosa
 
-LSTM-based sequence classifier
+spotipy
 
-Optional: CNN-LSTM hybrid model with regularization
+tensorflow
 
-5. Training & Evaluation
+scikit-learn
 
-Categorical Crossentropy Loss
+seaborn
 
-Optimizers: RMSProp / Adam
+matplotlib
 
-Callbacks: EarlyStopping, ReduceLROnPlateau
+imbalanced-learn
 
-Accuracy and Confusion Matrix evaluation
+streamlit
 
-6. Emotion Prediction
+python-dotenv
 
-Preprocess new audio samples
+## Installation
 
-Predict emotion with trained model
+pip install -r requirements.txt
 
-Map emotion to musical genre
+## How to Use
 
-7. Spotify Music Recommendation
+CLI / Notebook
 
-Uses spotipy and Spotify Developer API
+Place .wav files in the AudioWAV/ directory.
 
-Recommends top 5 tracks based on genre matching the emotion
+Run either moodify-method_1.ipynb or moodify-method_2.ipynb.
 
-## Example
+Use the test_audio_prediction function to evaluate results.
 
-### Example usage
-predict_and_recommend("path/to/audio.wav", model, label_encoder, scaler)
+Web App
 
-🎧 Emotion-to-Genre Mapping
+streamlit run app.py
 
-{
-  'happy': 'pop',
-  'sad': 'classical',
-  'angry': 'rock',
-  'fear': 'metal',
-  'disgust': 'metal',
-  'neutral': 'ambient'
-}
-
-## Notes
-
-All models trained using Google Colab GPU backend
-
-Audio preprocessing is critical for consistent performance
-
-Dimensionality reduction and feature enhancement are key to improving accuracy
-
-## API Keys
-
-You must set your Spotify API credentials using:
-
-SPOTIFY_CLIENT_ID = "your_client_id"
-SPOTIFY_CLIENT_SECRET = "your_client_secret"
-
-These can be created at Spotify Developer Dashboard.
-
-## Future Improvements
-
-Integrate visual modalities (e.g., facial expressions)
-
-Use pretrained embeddings from Wav2Vec or Hubert
-
-Improve real-time response with optimized model deployment
-
-## Contributors
-
-Shahina Rajamani
-Shimil Shijo
-Sundar Swaminathan
+Upload a .wav file to get started.
 
 
